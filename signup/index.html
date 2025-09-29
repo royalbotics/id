@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ro&Bot™ ID – Sign Up</title>
+<link rel="icon" href="https://i.ibb.co/Jw6dV46h/favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --platinum-bg: linear-gradient(145deg, #f9f9f9, #f0f0f0, #f4f4f4);
+  --accent: #c4a484;
+  --text: #111;
+  --muted: #555;
+  --error-color: #E07A5F;
+  --error-bg: rgba(224, 122, 95, 0.1);
+}
+
+* { box-sizing:border-box; margin:0; padding:0; font-family:'Poppins', sans-serif; }
+
+body {
+  height:100vh;
+  width:100vw;
+  background: var(--platinum-bg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color: var(--text);
+  overflow:hidden;
+  position:relative;
+}
+
+.main-container {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  width:100%;
+  max-width:480px;
+  padding:0 20px;
+  animation: fadeIn 0.8s ease;
+}
+
+.logo-id {
+  display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:12px;
+}
+.logo-id img { height:50px; }
+.logo-id span { font-size:2.6rem; font-weight:700; color: var(--text); }
+
+.subtitle {
+  font-size:1.4rem;
+  color: var(--muted);
+  margin-bottom:30px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 22px;
+  width:100%;
+}
+.form-group input {
+  width:100%;
+  padding:18px 16px;
+  border:none;
+  border-bottom:1px solid rgba(0,0,0,0.1);
+  font-size:1rem;
+  background: transparent;
+  color: var(--text);
+  transition: all 0.3s;
+}
+.form-group input::placeholder { color: transparent; }
+.form-group input:focus {
+  border-bottom:2px solid var(--accent);
+  outline:none;
+}
+.form-group label {
+  position:absolute;
+  left:16px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+  font-size:0.9rem;
+  transition:0.25s;
+  pointer-events:none;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top:-6px; left:0;
+  font-size:0.75rem;
+  color:var(--accent);
+}
+
+.btn {
+  width:100%;
+  padding:16px;
+  font-size:1rem;
+  font-weight:600;
+  border:none;
+  border-radius:12px;
+  background: linear-gradient(135deg, #d6bfa9, #c4a484);
+  color:#fff;
+  cursor:pointer;
+  transition: all 0.3s;
+  margin-top:12px;
+}
+.btn:hover { opacity:0.9; transform: translateY(-1px); }
+
+#messageBox {
+  margin-top:15px;
+  font-size:0.9rem;
+  text-align:center;
+  min-height:24px;
+  border-radius:8px;
+  padding:6px 10px;
+}
+
+#messageBox.error {
+  color: var(--error-color);
+  background: var(--error-bg);
+  display: inline-block;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+#messageBox.success {
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+  border-radius: 8px;
+  display: inline-block;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.loader {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border: 3px solid rgba(0,0,0,0.2);
+  border-top: 3px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+body::before {
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(circle at 25% 25%, rgba(196,164,132,0.05), transparent 60%),
+              radial-gradient(circle at 75% 75%, rgba(196,164,132,0.05), transparent 60%);
+  background-size:200% 200%;
+  animation: floatBg 20s linear infinite;
+  z-index:-1;
+}
+
+@keyframes floatBg {
+  0% { background-position:0% 0%, 100% 100%; }
+  50% { background-position:50% 50%, 50% 50%; }
+  100% { background-position:0% 0%, 100% 100%; }
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(25px);}
+  to {opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<div class="main-container">
+  <div class="logo-id">
+    <img src="https://roandbot.com/logo-main.png" alt="Ro&Bot™">
+    <span>ID</span>
+  </div>
+  <div class="subtitle">Sign Up</div>
+
+  <form id="signupForm">
+    <div class="form-group">
+      <input type="email" id="email" required placeholder="">
+      <label for="email">Email</label>
+    </div>
+    <div class="form-group">
+      <input type="password" id="password" required placeholder="">
+      <label for="password">Password</label>
+    </div>
+    <div class="form-group">
+      <input type="password" id="confirm" required placeholder="">
+      <label for="confirm">Confirm Password</label>
+    </div>
+    <button type="submit" class="btn">Sign Up</button>
+  </form>
+
+  <div id="messageBox"></div>
+  <div class="switch-link">
+    Already have an account? <a href="/login/">Login</a>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById('signupForm');
+const msgBox = document.getElementById('messageBox');
+
+function showMessage(msg, type='error') {
+  msgBox.innerHTML = msg;
+  msgBox.className = type;
+}
+
+function showLoader() {
+  msgBox.innerHTML = '<div class="loader"></div>';
+  msgBox.className = '';
+}
+
+// Pre-fill email if passed in URL ?email=
+const params = new URLSearchParams(window.location.search);
+const preEmail = params.get('email');
+if (preEmail) document.getElementById('email').value = preEmail;
+
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const confirm = document.getElementById('confirm').value;
+
+  if (!email) return showMessage("Please enter your email.");
+  if (!password) return showMessage("Please enter a password.");
+  if (password !== confirm) return showMessage("Passwords don’t match. Try again.");
+
+  showLoader();
+  try {
+    const res = await fetch('https://server.id.roandbot.com/signup', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      showMessage("Signup successful! Welcome 👋", 'success');
+      setTimeout(()=>{ window.location.href = '/login/'; }, 1500);
+    } else {
+      showMessage(data.error || "Oops, something went wrong. Try again.");
+    }
+  } catch {
+    showMessage("Couldn’t reach the server. Please try again in a moment.");
+  }
+});
+</script>
+
+</body>
+</html>
